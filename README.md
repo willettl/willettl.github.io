@@ -3,16 +3,100 @@
 
 ## Development
 <br>
+
 *Medium Scale Abstraction*
 <br>
 
 *Medium Scale Architecture*
 <br>
 **What architectural pattern does your program employ?**
-Designed the architectural structure for the backend in which we have a folder of models and a folder of services that are intermediate steps for the models. Once we had the layout for the files, then Youssef and I were able to fill in the functions for all the uses of our different tables, and he connected everything to the database and server to make sure we could actually access our tables when we call. All of these things were in separate locations from anything frontend, with only server.js not being in a folder.
+Designed the architectural structure for the backend in which we have a folder of models and a folder of services that are intermediate steps for the models. Once we had the layout for the files, then Youssef and I were able to fill in the functions for all the uses of our different tables, and he connected everything to the database and server to make sure we could actually access our tables when we call. All of these things were in separate locations from anything frontend, with only server.js not being in a folder. In server.js we also have imported all of our service files to be able to use those as well 
 
 **What components result from this pattern in your program?**
 The components that came from this were XXXXXXXXModel.js for each thing, XXXXXXXService.js for each thing, db.js and server.js. Each model had at least async function that took in some parameters and would return a row from the table it affects. In each service we built at least one async function that checked for errors and input types then goes and edits the tables using the models. 
+For example, looking at commentModel.js we have a function createComment.
+```javascript
+async function createComment(marketId, body, client = db) {
+  const query = `
+    INSERT INTO comments (market_id, body)
+    VALUES ($1, $2)
+    RETURNING id, market_id, body, created_at
+  `;
+
+  const result = await client.query(query, [marketId, body]);
+  return result.rows[0];
+}
+```
+This gets called later in commentService.
+```javascript
+async function addComment(marketId, body) {
+  if (!marketId) {
+    throw createError('Market ID is required', 400);
+  }
+
+  if (!body || !body.trim()) {
+    throw createError('Comment body is required', 400);
+  }
+
+  const client = await db.connect();
+
+  try {
+    await client.query('BEGIN');
+
+    const marketResult = await client.query(
+      'SELECT id FROM markets WHERE id = $1',
+      [marketId]
+    );
+
+    if (!marketResult.rows[0]) {
+      throw createError('Market not found', 404);
+    }
+
+    const comment = await createComment(marketId, body.trim(), client);
+    await client.query('COMMIT');
+    return comment;
+  } catch (error) {
+    await client.query('ROLLBACK');
+    throw error;
+  } finally {
+    client.release();
+  }
+}
+```
+We also see it in server.js which uses addComment from the service.
+```javascript
+app.post('/api/markets/:marketId/comments', async (req, res) => {
+  try {
+    const comment = await addComment(req.params.marketId, req.body.body);
+    res.status(201).json(comment);
+  } catch (err) {
+    res.status(err.statusCode || 500).json({ error: err.message });
+  }
+});
+```
+
+Then later on we can use app.post functions in our App.tsx file to addComments, like we see here.
+```javascript
+const addComment = async (
+    marketId: string,
+    body: string
+  ): Promise<MarketComment> => {
+    const response = await fetch(`/api/markets/${marketId}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ body }),
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.json().catch(() => null);
+      throw new Error(errorBody?.error || "Failed to post comment");
+    }
+
+    return response.json();
+  };
+```
 
 **What technologies and/or libraries make-up each of the components?**
 In everything we have it written in javascript, sometimes with bits of SQL queries wrapped up in the functions. The only thing we have explicitly imported into most files are references to each other and db. In server we use express and cors.
@@ -21,12 +105,15 @@ In everything we have it written in javascript, sometimes with bits of SQL queri
 
 ## Verification
 <br>
+
 *Testing Strategies*
 <br>
+
 *Testing Infrastructure*
 
 ## Design
 <br>
+
 *Needfinding*
 <br>
 
@@ -73,6 +160,7 @@ The main thing I took away is that our proposed layout for functionality and int
 
 ## Engineering
 <br>
+
 *Infrastructure*
 <br>
 
