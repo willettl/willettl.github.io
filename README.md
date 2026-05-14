@@ -6,6 +6,68 @@
 
 *Medium Scale Abstraction*
 <br>
+**What functionality does your code sample abstract away?**
+It abstracts away the logic of processing a bet, such as making sure there is enough money to make the bet, whether the market is open or not, how we are actually going to run it, and on top of that all the other things that happen alongside placing a bet. We produce a wager yes, but we also need to update the odds, the pool of money in that bet and update the users balance.
+
+**How does it mechanically achieve abstraction?**
+In this example we have two different files, where one is in a lower level that has a function get called up to it. The server.js file calls the placeBet function up from services/bettingService.js where a lot of the behind the scenes stuff actually happens:
+Even in this file we can see a call to updateBalance, which is a function that lives in an even lower level file in models/userModel.js which is another layer of abstraction. We don’t need to see the exact SQL query it takes to update a users balance, in what table all the information is stored and extra crap when we are looking at placing a bet. We also use updateBalance once again in the file services/marketService.js, which shows how we can use this piece anywhere we want (even though we only had two uses it would be super easy to use this service as much as we wanted).
+
+In server.js:
+```javascript
+app.post('/api/markets/:marketId/bets', authMiddleware, async (req, res) => {
+  try {
+    const { marketId } = req.params;
+    const { outcomeId, amount } = req.body;
+
+    const wager = await placeBet(req.user.id, marketId, outcomeId, amount);
+    res.status(201).json(wager);
+  } catch (err) {
+    res.status(err.statusCode || 500).json({ error: err.message });
+  }
+});
+
+```
+In services/bettingService.js
+```javascript
+async function placeBet(userId, marketId, outcomeId, amount) {
+  if (Number(user.balance) < numericAmount) {
+    throw createError('Not enough acorns to place this bet', 400);
+  }
+
+  const wager = await createWager(
+    userId,
+    outcomeId,
+    numericAmount,
+    oddsAtBet,
+    client
+  );
+
+  const updatedUser = await updateBalance(
+    userId,
+    Number(user.balance) - numericAmount,
+    client
+  );
+}
+```
+In models.userModels.js
+```javascript
+async function updateBalance(userId, newBalance, client = db) {
+  const query = `
+    UPDATE users
+    SET balance = $1
+    WHERE id = $2
+    RETURNING id, balance
+  `;
+
+  const result = await client.query(query, [newBalance, userId]);
+  return result.rows[0];
+}
+```
+
+**What purpose does this abstraction serve in your larger program?**
+There are two purposes to this abstraction, the first is to separate the levels for the sake of easier reading and de-cluttering. If we know we have an issue with placing a bet, but the issue is about the money not being taken from an account, we don’t have to look through the entire codebase for anything related to placing a bet, we know it’s something to do with either the model file, or not calling to the model file. The other is that we could use our model functions or service functions wherever we want, and while there wasn’t a significant amount of overlap in the use of these, the structure would have been there had we wanted to.
+
 
 *Medium Scale Architecture*
 <br>
