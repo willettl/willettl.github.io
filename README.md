@@ -1,14 +1,14 @@
 # My Shit
 
 
-**Development**
+#Development
 **Medium Scale Abstraction**
 **Medium Scale Architecture**
 What architectural pattern does your program employ?
 Designed the architectural structure for the backend in which we have a folder of models and a folder of services that are intermediate steps for the models. Once we had the layout for the files, then Youssef and I were able to fill in the functions for all the uses of our different tables, and he connected everything to the database and server to make sure we could actually access our tables when we call. All of these things were in separate locations from anything frontend, with only server.js not being in a folder.
 
 What components result from this pattern in your program?
-The components that came from this were _____Model.js for each thing, _______Service.js for each thing, db.js and server.js. Each model had at least async function that took in some parameters and would return a row from the table it affects. In each service we built at least one async function that checked for errors and input types then goes and edits the tables using the models. 
+The components that came from this were XXXXXXXXModel.js for each thing, XXXXXXXService.js for each thing, db.js and server.js. Each model had at least async function that took in some parameters and would return a row from the table it affects. In each service we built at least one async function that checked for errors and input types then goes and edits the tables using the models. 
 
 What technologies and/or libraries make-up each of the components?
 In everything we have it written in javascript, sometimes with bits of SQL queries wrapped up in the functions. The only thing we have explicitly imported into most files are references to each other and db. In server we use express and cors.
