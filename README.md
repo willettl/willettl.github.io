@@ -1,4 +1,4 @@
-# My Shit
+# Competencies
 
 
 ## Development
@@ -14,7 +14,8 @@ Designed the architectural structure for the backend in which we have a folder o
 
 **What components result from this pattern in your program?**
 The components that came from this were XXXXXXXXModel.js for each thing, XXXXXXXService.js for each thing, db.js and server.js. Each model had at least async function that took in some parameters and would return a row from the table it affects. In each service we built at least one async function that checked for errors and input types then goes and edits the tables using the models. 
-For example, looking at commentModel.js we have a function createComment.
+<br>
+For example, looking at commentModel.js we have a function createComment:
 ```javascript
 async function createComment(marketId, body, client = db) {
   const query = `
@@ -27,7 +28,7 @@ async function createComment(marketId, body, client = db) {
   return result.rows[0];
 }
 ```
-This gets called later in commentService.
+This gets called later in commentService:
 ```javascript
 async function addComment(marketId, body) {
   if (!marketId) {
@@ -63,7 +64,7 @@ async function addComment(marketId, body) {
   }
 }
 ```
-We also see it in server.js which uses addComment from the service.
+We also see it in server.js which uses addComment from the service:
 ```javascript
 app.post('/api/markets/:marketId/comments', async (req, res) => {
   try {
@@ -75,7 +76,7 @@ app.post('/api/markets/:marketId/comments', async (req, res) => {
 });
 ```
 
-Then later on we can use app.post functions in our App.tsx file to addComments, like we see here.
+Then later on we can use app.post functions in our App.tsx file to addComments, like we see here:
 ```javascript
 const addComment = async (
     marketId: string,
@@ -165,7 +166,7 @@ The main thing I took away is that our proposed layout for functionality and int
 <br>
 
 **What development tools did you use through the process to help write code and automate the build/deployment process?**
-We used a healthy bit of ChatGPT in our project, and that definitely helped me through some struggles. The way I used it was attempting to write the barebones of my stuff first without help to allow myself to struggle through it first, and then if that fails, give the files to ChatGPT and ask what is going wrong. Because a lot of our files have a similar structure, just doing this on the first of many similar documents, getting help with fixing the first one means I can implement what I learned in the construction of the rest of them. 
+We used a healthy bit of ChatGPT in our project, and that definitely helped me through some struggles. The way I used it was attempting to write the barebones of my stuff first without help to allow myself to struggle through it first, and then if that fails, give the files to ChatGPT and ask what is going wrong. Because a lot of our files have a similar structure, just doing this on the first of many similar documents, getting help with fixing the first one means I can implement what I learned in the construction of the rest of them. We also used Github to collaborate in our codebase, which was useful at some times and harmful at others. The issues tab was nice in the beginning to plan out what we wanted to get done and at levels of priorities. In actuality we ended up doing the bulk of our work together, so we never used merge conflicts in the traditional way as much. This did kick us once or twice because we had a few instances of overriding by not pulling and pushing or something of that sort. I also chose to use VSCode as my way to work on editing code. I don't have a huge setup or anything, mainly just the extensions that we directly needed and I wasn't using Copilot so it wasn't like this was an amazing tool, but it was solid enough for the work I wanted to do and not overly complicated to where it was another thing to juggle.
 
 **What is one specific problem (e.g., debugging and issue) that you encountered while writing code and how did your tools help or hinder your ability to address that problem?**
 Early on in the process I found issues where the functions to add things and modify the database were running but never saving long term. I kept trying to edit and reexamine the files that the functions were actually in, and even when I threw them into ChatGPT its solutions were not solving it. Eventually I figured out that there was probably something wrong with different files that were causing the issue, and managed to fix it with Youssef super quick. So in this specific case, asking ChatGPT was not super helpful because it was only being fed what I gave it, so it obviously couldn’t detect whatever issue was happening elsewhere.
