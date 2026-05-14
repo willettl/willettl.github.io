@@ -1,7 +1,8 @@
 # My Shit
 
 
-#Development
+**Development*
+<br>
 **Medium Scale Abstraction**
 **Medium Scale Architecture**
 What architectural pattern does your program employ?
