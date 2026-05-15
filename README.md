@@ -251,9 +251,11 @@ It seemed to give us positive results for sure, the subjects all immediately fou
 
 **What was the design of your user study to evaluate your artifact?**
 I brought our MVP to a friend who has been into sports betting previously, and asked him to poke around and critique it. In doing this I had to tell him to pretend there were other things going on, such as to imagine a leaderboard, mini-games page and the login buttons.
+
 <a href="washed-gambler prototype.pdf" target="_blank">
   View Evaluation
 </a>
+
 Informally at a later point, I brought a more finished product to this same person asking similar questions. I wanted to come back and check off all the issue he had brought up, not taking notes on whether there was more to do, just to cover that we fixed what he pointed out.
 
 **What were the results of this user study?**
@@ -281,6 +283,9 @@ Early on in the process I found issues where the functions to add things and mod
 
 **Describe the technology that the tutorial addresses and how it fits into your project.**
 We did our presentation on SQLite, and while I technically worked with PostGRESQL in the project, the idea of using SQL for our backend was the same. Our project used SQL to store everything from users to markets and bets as a way to make them stay permanent on our website. This is how we kept track of pretty much everything, even seemingly small things such as upvote counts.
+This is my beautiful slide from the presentation, which did have a couple images beneath the explosion images that were shown with transistions. I got to talk about the high level functions of SQL and gave a light real life example of what each of the CRUD functions would be used to do.
+<img width="985" height="522" alt="Screenshot 2026-05-15 at 8 34 00 AM" src="https://github.com/user-attachments/assets/03d18bde-7a65-4ecf-84cc-623c4e2bf880" />
+
 
 **Evaluate how useful the tool was in your work. What were its strengths and weaknesses, especially in comparison with other tools you have used.**
 There is a fair bit of stuff that I created early on with the thought we would use it later on that never really got used, which is just sitting there taking up space and time which was a slight weakness, because it makes sense to set up the schema early on. The strength was that it was great to build functions that called from our front end files easily and filled in things like upvotes and comments smoothly. One thing that was also nice is that in our creation of the tables, we can code in that it creates unique hashes for each element, as well as is able to set default values for fields, which means we didn’t have to put those in other files and make them messier, and could never touch them again.
