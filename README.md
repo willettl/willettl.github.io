@@ -214,11 +214,15 @@ I learned that we didn’t need to make a tutorial or a help section for the web
 **What techniques did you use to discover solutions to users' needs?**
 One big thing we did was find sources we wanted to draw from and build our ideas from there. In the end our goal turned out to be to try and mash together pieces of YikYak and (generic sports betting app) and add Grinnell flare. In talking generally to our friends who use both (not in a strict interview way, but just casually) we found what made each appealing, and tried to pull from there. A large part of our ideation came from the creation of our "Timmy Johnny and Spike", of which we had four. We laid out what each of our people wanted to get out of the experience of our app and tried to meet all of them, and overlap when possible to minimize the work we had to do. We did a good job of stereotyping Grinnellians and fitting them into molds of caricatures and then almost assigning different pieces of our product to each one.
 
-<img width="3024" height="3032" alt="IMG_8659" src="https://github.com/user-attachments/assets/f16f22ed-d48b-4a7c-8ad4-8ddec9f013e1" />
-<img width="3024" height="3032" alt="IMG_8658" src="https://github.com/user-attachments/assets/bde02a8b-d672-4f05-9612-259d71716d35" />
-<img width="3024" height="3032" alt="IMG_8657" src="https://github.com/user-attachments/assets/819c2ea9-a394-4b10-9b12-dec3ff153cd5" />
-<img width="3024" height="3032" alt="IMG_8656" src="https://github.com/user-attachments/assets/59ceb58d-c41c-43c3-b0ac-da196af86bf6" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f16f22ed-d48b-4a7c-8ad4-8ddec9f013e1" width="45%" />
+  <img src="https://github.com/user-attachments/assets/bde02a8b-d672-4f05-9612-259d71716d35" width="45%" />
+</p>
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/819c2ea9-a394-4b10-9b12-dec3ff153cd5" width="45%" />
+  <img src="https://github.com/user-attachments/assets/59ceb58d-c41c-43c3-b0ac-da196af86bf6" width="45%" />
+</p>
 
 
 **What solution(s) did you ultimate pursue and why did you choose them?**
