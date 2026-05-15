@@ -259,3 +259,14 @@ One thing is that early on, our meetings didn’t seem super productive because 
 
 *Collaboration*
 
+## Advance 
+*Accessibility*
+**Identify a portion of the user interface that you designed.**
+How does your design adhere to one or more of the principles of accessible design?
+The design I added was to help with screen readers for accessibility, working on the principle of robustness. The main thing to fix was that our tags were for the longest time all <div> which are not helpful. I worked on the file app.tsx and button.tsx minorly along with Mina, which had a few types of issues to fix. The easy one was to add labels onto various things, such as buttons. So we now have aria-label on buttons at the top of the page that lead to minigams, login etc. We also added sections to the app and labeled those, so the leaderboard got a label as well as betting markets and top bets. Then we added some structure to the file, giving the whole thing a labeled wrapping, and then giving the banner a better label. We added screen reader announcements for loading/errors which we never really saw when running but felt good on principle. Another thing was adding in a bit that said which page we were on, either the market or the mini game. Independently I also messed around in the button.tsx file to add a better outline function, which allowed it to outline every single button without fail, because for some reason it was not going on the upvotes and report buttons.
+
+
+**How did you use validation tools (if at all) to ensure that your design was accessible?**
+We used the WAVE extension to get a look at our scores. We got a 7.9/10 and it seemed like most of the points being docked were for low contrast pieces of text, which we deemed as pretty unnecessary pieces of text and so didn’t worry. But this helped us track the structure of our file properly to make sure the headers and layouts worked. Then we also got to see the order, which we used to make sure that all of the buttons we wanted to be known as buttons worked, and the order that they would tab around in.
+
+
