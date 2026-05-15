@@ -206,7 +206,7 @@ One thing we were able to find from this, that we never found by clicking around
 I conducted an interview + observation at the beginning of the process, and then another interview + observation with a different subject after we had our MVP. In the first one, I presented our AI made minigame website and gave her the instructions to just use it however you want. This person was very much a non-gambler, and had no idea how at least half of the games worked. So this process was good to see how someone who has never gambled, either online or in person, would approach being presented with a multitude of options and minimal instructions within the website and games. Then the next part of that was to sit her in front of Polymarket and say “move around like you would, and just tell me if you would bet with fake money (but with leaderboard incentive)”. This again was to see what a fully new person would navigate to, as well as what types of betting habits someone who doesn’t have a crippling gambling addiction would make.  This was the population I was in charge of learning about, because other people were doing this for serious gamblers.
 
 <a href="non-gambler observation.pdf" target="_blank">
-  View PDF
+  View Observation
 </a>
 
 **What did you learn about users' needs from this process?**
@@ -236,7 +236,9 @@ We felt we needed the leaderboard here, as it overlapped with 2/4 of our Grinnel
 <br>
 **What design questions did you intend to answer with your prototype(s).**
 One of the big questions we wanted to ask was how intuitive it was to interact with everything, and if in their looking at our MVP, would they be able to identify all the features we plan to have, or would there be something that they would miss, and we need to make it more obvious. A few questions were later asked on the aesthetics of it, but that was not our primary concern and we were sure we were going to change it later (ended up keeping it for the most part in the end).
-
+<a href="washed-gambler prototype.pdf" target="_blank">
+  View Prototype Evaluation
+</a>
 
 **How did you design your prototype(s) and subsequent user studies to address these questions?**
 In our MVP/prototype we made sure to include all the areas for things we want to add, even if they had no working actions tied to them yet. Also we chose not to add any instructions or non-essential text to the website, nothing more than the text on the buttons in order to not give any hints or whatever. In the actual interactions I made sure not to give any instruction aside from “this is our gambling website, poke around like you would” in order to see how intuitive it actually was.
