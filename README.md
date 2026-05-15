@@ -367,6 +367,35 @@ Not too many difficulties working on these specific issues with the team, I thin
 How does your design adhere to one or more of the principles of accessible design?
 The design I added was to help with screen readers for accessibility, working on the principle of robustness. The main thing to fix was that our tags were for the longest time all <div> which are not helpful. I worked on the file app.tsx and button.tsx minorly along with Mina, which had a few types of issues to fix. The easy one was to add labels onto various things, such as buttons. So we now have aria-label on buttons at the top of the page that lead to minigams, login etc. We also added sections to the app and labeled those, so the leaderboard got a label as well as betting markets and top bets. Then we added some structure to the file, giving the whole thing a labeled wrapping, and then giving the banner a better label. We added screen reader announcements for loading/errors which we never really saw when running but felt good on principle. Another thing was adding in a bit that said which page we were on, either the market or the mini game. Independently I also messed around in the button.tsx file to add a better outline function, which allowed it to outline every single button without fail, because for some reason it was not going on the upvotes and report buttons.
 
+An example of using aria-labels, and headers at the top of our App.tsx file found in GrinCode/src/app.tsx:
+```javascript
+<main aria-label="Grin Gambling application">
+      <header className="banner" role="banner">
+        <img src={banner} alt="Grin Gambling Website Banner" />
+        <h1 aria-label="Grin Gambling">G R I N G A M B L I N G </h1>
+        <Currency acorns={currentAcorns} />
+      </header>
+      <p className="sr-only" aria-live="polite">
+        Current acorn balance: {currentAcorns}
+      </p>
+
+      <nav className="button-area" aria-label="Primary navigation">
+        <Button aria-label="Switch to market view"
+```
+Here is our alerts that show up, also in GrinCode/src/app.tsx:
+```javascript
+{errorMessage && (
+        <p role="alert" aria-live="assertive">
+        {errorMessage}
+        </p>
+      )}
+      {isLoading && activeView === "markets" && (
+        <p aria-live="polite">
+        Loading markets...
+        </p>
+      )}
+```
+
 
 **How did you use validation tools (if at all) to ensure that your design was accessible?**
 We used the WAVE extension to get a look at our scores. We got a 7.9/10 and it seemed like most of the points being docked were for low contrast pieces of text, which we deemed as pretty unnecessary pieces of text and so didn’t worry. But this helped us track the structure of our file properly to make sure the headers and layouts worked. Then we also got to see the order, which we used to make sure that all of the buttons we wanted to be known as buttons worked, and the order that they would tab around in.
