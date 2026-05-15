@@ -172,7 +172,27 @@ In everything we have it written in javascript, sometimes with bits of SQL queri
 *Testing Strategies*
 <br>
 
+**Identify a component of your project that you were responsible for testing. According to code coverage tools, what aspects of this component are covered with tests?**
+I worked on testing the backend side of things, and we managed to get pretty much all of the backend covered by our testing. All the categories we tested in were: login/logout functions along with session tokens, betting and closing markets, creating and storing comments, checking on bet creation closeouts and timing, and working with up/down votes. These ranges of tests spanned all five of our service.js files, and so we have a corresponding test file for each. We also created a test file for each of the model files in those folders, which were covering the more basic functions to deal with the queries directly. Some of what we did with these are insert/update/select queries, ordering data (transactions, comments),  authenticated market creation, the market lookup queries, and the returned rows shape from each database helper function. 
+
+
+**What kinds of tests are they?**
+We used the vitest unit testing setup that the front-end also used, for even more ease testing together. For the services we utilized a mocked database to run our tests, which we could run different operations for cases with wrong input, for example. For the models they are query unit tests that mock the database client, call the model function, and check the flow of data that the SQL is invoked with the correct parameters and returns the expected row in terms of shape.
+
+
+**For code that is not covered by tests, why did you not cover them?**
+In the backend the only bit we didn’t cover was the schema.sql file and the server.js file. This is because they are on different ends of the spectrum, the schema file is so basic and critical that for any single other thing to work, the schema must be set up in a functional way. We would notice something wrong if everything was breaking at higher levels, but it was all individual issues so it wasn’t anything with schema. And then server.js is so high level that all of its functionality was broken up and tested already, in the services files. So we didn’t need to test it directly because we had already covered testing every piece of it.
+
+
 *Testing Infrastructure*
+<br>
+
+**How have you automated your tests so that they both take "1-click" to run and run automatically as part of build validation?**
+In using vitest for our testing environment, we were able to write them all in different files, in a 1-1 ratio of models and services to tests. Then we can configure them in the vite.config.ts file, and we can switch between testing our service files (by using our mock database) or our model files (by using our query based tests). This gets us to a place where we can then run one command in the terminal which grants us a view of every test as well as the total coverage of the files we have tested. This way we can easily see our results in entirety, as well as what bits of code we should think about writing more tests for. 
+
+**Describe a specific occurrence in which your testing infrastructure saved you and/or your team work?**
+One thing we were able to find from this, that we never found by clicking around on the website, was issue #50 on github. This issue with this was users were able to create bet markets without being logged into an account. We had clicked around and verified that you couldn’t interact with bets if you weren’t logged in (ie commenting, placing wager, placing a vote), but had never tried to make a market. This issue came from attaching our betPost.tsx to the authentication services, but create bet was a button that lived in app.tsx. While this was an easy fix to implement, not catching it would have been an embarrassing mistake. Had this been a real product launch, users could flood the market with nonsensical bets and override any legitimate attempt to use the product. There would be no consequences, as you couldn’t report a user who isn’t logged in, and so people would have free reign to abuse this hole in the system. Luckily we tested this before “deployment” which saved the work of having to scramble to patch a bug “over the air” and also saved the embarrassment of needing to apologize to our hypothetical customers.
+
 
 ## Design
 <br>
