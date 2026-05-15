@@ -3,6 +3,8 @@
 
 ## Development
 <br>
+All code mentioned here can be found in the Grin-gambling/GrinCode repo
+<br>
 
 *Medium Scale Abstraction*
 <br>
@@ -13,7 +15,7 @@ It abstracts away the logic of processing a bet, such as making sure there is en
 In this example we have two different files, where one is in a lower level that has a function get called up to it. The server.js file calls the placeBet function up from services/bettingService.js where a lot of the behind the scenes stuff actually happens:
 Even in this file we can see a call to updateBalance, which is a function that lives in an even lower level file in models/userModel.js which is another layer of abstraction. We don’t need to see the exact SQL query it takes to update a users balance, in what table all the information is stored and extra crap when we are looking at placing a bet. We also use updateBalance once again in the file services/marketService.js, which shows how we can use this piece anywhere we want (even though we only had two uses it would be super easy to use this service as much as we wanted).
 
-In server.js:
+In server.js (all Youssef):
 ```javascript
 app.post('/api/markets/:marketId/bets', authMiddleware, async (req, res) => {
   try {
@@ -28,7 +30,7 @@ app.post('/api/markets/:marketId/bets', authMiddleware, async (req, res) => {
 });
 
 ```
-In services/bettingService.js
+In services/bettingService.js (both of us wrote together):
 ```javascript
 async function placeBet(userId, marketId, outcomeId, amount) {
   if (Number(user.balance) < numericAmount) {
@@ -50,7 +52,7 @@ async function placeBet(userId, marketId, outcomeId, amount) {
   );
 }
 ```
-In models.userModels.js
+In models.userModels.js (all me):
 ```javascript
 async function updateBalance(userId, newBalance, client = db) {
   const query = `
@@ -77,7 +79,7 @@ Designed the architectural structure for the backend in which we have a folder o
 **What components result from this pattern in your program?**
 The components that came from this were XXXXXXXXModel.js for each thing, XXXXXXXService.js for each thing, db.js and server.js. Each model had at least async function that took in some parameters and would return a row from the table it affects. In each service we built at least one async function that checked for errors and input types then goes and edits the tables using the models. 
 <br>
-For example, looking at commentModel.js we have a function createComment:
+For example, looking at commentModel.js we have a function createComment (mostly me):
 ```javascript
 async function createComment(marketId, body, client = db) {
   const query = `
@@ -90,7 +92,7 @@ async function createComment(marketId, body, client = db) {
   return result.rows[0];
 }
 ```
-This gets called later in commentService:
+This gets called later in commentService (both myself and Youssef):
 ```javascript
 async function addComment(marketId, body) {
   if (!marketId) {
@@ -126,7 +128,7 @@ async function addComment(marketId, body) {
   }
 }
 ```
-We also see it in server.js which uses addComment from the service:
+We also see it in server.js which uses addComment from the service (Youssef):
 ```javascript
 app.post('/api/markets/:marketId/comments', async (req, res) => {
   try {
@@ -138,7 +140,7 @@ app.post('/api/markets/:marketId/comments', async (req, res) => {
 });
 ```
 
-Then later on we can use app.post functions in our App.tsx file to addComments, like we see here:
+Then later on we can use app.post functions in our App.tsx file to addComments, like we see here (Front-end folks I believe):
 ```javascript
 const addComment = async (
     marketId: string,
@@ -173,7 +175,7 @@ In everything we have it written in javascript, sometimes with bits of SQL queri
 <br>
 
 **Identify a component of your project that you were responsible for testing. According to code coverage tools, what aspects of this component are covered with tests?**
-I worked on testing the backend side of things, and we managed to get pretty much all of the backend covered by our testing. All the categories we tested in were: login/logout functions along with session tokens, betting and closing markets, creating and storing comments, checking on bet creation closeouts and timing, and working with up/down votes. These ranges of tests spanned all five of our service.js files, and so we have a corresponding test file for each. We also created a test file for each of the model files in those folders, which were covering the more basic functions to deal with the queries directly. Some of what we did with these are insert/update/select queries, ordering data (transactions, comments),  authenticated market creation, the market lookup queries, and the returned rows shape from each database helper function. 
+I worked on testing the backend side of things, and we managed to get pretty much all of the backend covered by our testing. All the categories we tested in were: login/logout functions along with session tokens, betting and closing markets, creating and storing comments, checking on bet creation closeouts and timing, and working with up/down votes. These ranges of tests spanned all five of our service.js files, and so we have a corresponding test file for each (found in Grincode in the services folder). We also created a test file for each of the model files in those folders, which were covering the more basic functions to deal with the queries directly (found in Grincode in the models folder). Some of what we did with these are insert/update/select queries, ordering data (transactions, comments),  authenticated market creation, the market lookup queries, and the returned rows shape from each database helper function. 
 
 
 **What kinds of tests are they?**
@@ -210,7 +212,14 @@ I learned that we didn’t need to make a tutorial or a help section for the web
 <br>
 
 **What techniques did you use to discover solutions to users' needs?**
-One big thing we did was find sources we wanted to draw from and build our ideas from there. In the end our goal turned out to be to try and mash together pieces of YikYak and (generic sports betting app) and add Grinnell flare. In talking generally to our friends who use both (not in a strict interview way, but just casually) we found what made each appealing, and tried to pull from there. A large part of our ideation came from the creation of our Timmy Johnny Spike, of which we had four. We laid out what each of our people wanted to get out of the experience of our app and tried to meet all of them, and overlap when possible to minimize the work we had to do. We did a good job of stereotyping Grinnellians and fitting them into molds of caricatures and then almost assigning different pieces of our product to each one.
+One big thing we did was find sources we wanted to draw from and build our ideas from there. In the end our goal turned out to be to try and mash together pieces of YikYak and (generic sports betting app) and add Grinnell flare. In talking generally to our friends who use both (not in a strict interview way, but just casually) we found what made each appealing, and tried to pull from there. A large part of our ideation came from the creation of our "Timmy Johnny and Spike", of which we had four. We laid out what each of our people wanted to get out of the experience of our app and tried to meet all of them, and overlap when possible to minimize the work we had to do. We did a good job of stereotyping Grinnellians and fitting them into molds of caricatures and then almost assigning different pieces of our product to each one.
+
+<img width="3024" height="4032" alt="IMG_8659" src="https://github.com/user-attachments/assets/f16f22ed-d48b-4a7c-8ad4-8ddec9f013e1" />
+<img width="3024" height="4032" alt="IMG_8658" src="https://github.com/user-attachments/assets/bde02a8b-d672-4f05-9612-259d71716d35" />
+<img width="3024" height="4032" alt="IMG_8657" src="https://github.com/user-attachments/assets/819c2ea9-a394-4b10-9b12-dec3ff153cd5" />
+<img width="3024" height="4032" alt="IMG_8656" src="https://github.com/user-attachments/assets/59ceb58d-c41c-43c3-b0ac-da196af86bf6" />
+
+
 
 **What solution(s) did you ultimate pursue and why did you choose them?**
 We felt we needed the leaderboard here, as it overlapped with 2/4 of our Grinnellians (addict, winner) with potential to pull others into more hybrid roles. The comment section felt important to pull in the social user, which we felt would be a large percentage of our user base. Making it as interactive as possible, even if they don’t choose to interact but to watch the conversations that can happen, was a sure way to keep them. This group was more from the YikYak side of things, and I think this is where YikYak gets its big points. Another thing we decided to add to this is a description of a bet in which groups (“Grinnellians” and social lurkers) can be more self expressive, and consume more text.
@@ -306,6 +315,8 @@ Not too many difficulties working on these specific issues with the team, I thin
 <br>
 
 *Accessibility*
+<br>
+
 **Identify a portion of the user interface that you designed.**
 How does your design adhere to one or more of the principles of accessible design?
 The design I added was to help with screen readers for accessibility, working on the principle of robustness. The main thing to fix was that our tags were for the longest time all <div> which are not helpful. I worked on the file app.tsx and button.tsx minorly along with Mina, which had a few types of issues to fix. The easy one was to add labels onto various things, such as buttons. So we now have aria-label on buttons at the top of the page that lead to minigams, login etc. We also added sections to the app and labeled those, so the leaderboard got a label as well as betting markets and top bets. Then we added some structure to the file, giving the whole thing a labeled wrapping, and then giving the banner a better label. We added screen reader announcements for loading/errors which we never really saw when running but felt good on principle. Another thing was adding in a bit that said which page we were on, either the market or the mini game. Independently I also messed around in the button.tsx file to add a better outline function, which allowed it to outline every single button without fail, because for some reason it was not going on the upvotes and report buttons.
