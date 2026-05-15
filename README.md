@@ -258,8 +258,33 @@ We split up and stuck with those roles for almost the entirety of the time, and 
 One thing is that early on, our meetings didn’t seem super productive because there wasn’t a lot of crossover work to be done at that point. We shared updates and future plans, but there wasn’t as much need to be in the same room as there was in the back third of our working time. So maybe we could have structured the load distribution differently to maximise on our in person meetings, or we could have just not needed such long meetings early on in the semester and saved time there. 
 
 *Collaboration*
+<br>
 
-## Advance 
+**Identify four different instances where you participated in collaborative work with your team as identified by specific commits, pull requests, and/or issue numbers on Github. These instances should not simply be "committing code" but situations that required back and forth with your peers, e.g., a substantial bug or a code review. You should have one instance each of (1) filing and/or resolving a bug, (2) filing a pull request, and (3) performing a code review of a pull request.**
+Reviewing pull request #23
+Working on fixing bug #6
+Producing pull requests #48 and #56
+Working on comments storing, which was mostly in person but collaborative
+
+**Identify the work you did in each of these instances.**
+For working on bug #6, this was early on in the project when our backend wasn’t entirely setup yet and the frontend had a button that was ready to start creating bets. At this point I had setup the framework in models and services that held most of the work to start adding things to a database. But I needed help to connect it to what the front-end people had done already. Youssef was a big help here, and took what I had built already and added in the server bit that was needed for the final connection, and then we both worked with either Sam or Mina (I forget) to be able to see where in the code we needed to attach our half.
+During the accessibility, before I produced pull requests #48 and #56, I was working on a file I had touched before, but not one that I had built by myself, and one that had been through a lot of changes recently. Especially during the beginning I needed a lot of help from the front-end people to point me to how things worked, syntax and format of the file. At the very end when I was pushing to main, I needed them to look at my pull requests to make sure I didn’t accidentally break anything, because my only indicator for correctness was no red squiggly lines. So having them double check my work to make sure I only did what I wanted was a good piece of collaboration.
+When reviewing a pull request #23, I had to make sure that there were no major merges that would mess up something. It mostly entailed going through code that she had previously written and then deleted which made my job fairly easy. There were a few pieces where it seemed to be a genuine decision to make, but knowing what the goal of the pull request was and having an understanding enough of the previous code made the decisions easy to make. I also made sure to comment on the next steps that lead from this pull request, because it wasn’t exactly the closing of an issue but a step to our final product here.
+When we were working on comments and upvotes storing, we knocked it out all in one sitting as a group so there was no back and forth on Github but we needed a lot of communication. Youssef did lots of the writing for the services while I was trying to get tables and basic functions set up. I also was talking to Mina and Sam trying to figure out how they had done the comments and upvotes getting them to temporarily stay and not permanent.
+
+**Describe the difficulties that necessitated communication with your peers in each instance.**
+For bug #6 the difficulty was that I hadn’t reached the point in my self learning where I knew how to start bridging the gap between server and front-end yet, and Youssef already had that knowledge. From that point we figured it would help to have someone who knew how the front-end was working in order to click them together smoothly.
+In pull requests #48 and #56, I didn’t have many issues with communicating. The issues I faced were purely with dealing with the accessibility framework itself, but to be fair we were in person during this. I think if I had to ask questions to people over whatsapp or email or whatever I would have a very different answer, but because I was sitting next to Sam I was easily able to get constant knowledge on the code I was working with.
+In the couple merge decisions that actually conflicted I had to go back and read through the original code first to re-remember what it was actually doing, because this was front-end and I wasn’t as familiar with it. So that was a little annoying but in the end the thorough check-over made it for a higher quality pull request review than if I had just skimmed over it. This wasn’t exactly an issue in communication as it was with me, but I guess it could have been Sam to merge this branch and not me.
+In communicating that I needed to find where to attach the backend from Youssef, and Mina and Sam pointing to where in the code base it got called, I got confused and it took a while to find another thing elsewhere in the file that needed to be changed as well. Between not knowing exactly what Youssef was doing and not being entirely knowledgeable on how the main file was run, I missed a const and something in post props that needed to be changed for a while, drawing out the process.
+
+**Did you encounter any difficulties in collaboration with team during these instances? If so, how did you resolve those difficulties?**
+Not too many difficulties working on these specific issues with the team, I think the only thing I can think of was that when we worked remotely, which was rare for doing big parts of the project, slow communication killed momentum sometimes as I would get a response too late to where I was unmotivated and locked out of doing the project. This wasn’t too big of an issue because we did most of our big work in person together. When working together somewhat of an issue was assuming base knowledge between front and back end, which left us glossing over what we assumed was trivial information.
+
+
+## Advanced
+<br>
+
 *Accessibility*
 **Identify a portion of the user interface that you designed.**
 How does your design adhere to one or more of the principles of accessible design?
